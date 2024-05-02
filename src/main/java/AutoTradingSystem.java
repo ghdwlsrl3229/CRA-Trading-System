@@ -31,4 +31,10 @@ public class AutoTradingSystem {
     private static boolean isNullAccountValue(String id, String pass) {
         return id == null || pass == null;
     }
+
+    public void buyNiceTiming(String code, int balance) {
+    }
+
+    public void sellNiceTiming(String code, int amount) {
+    }
 }
