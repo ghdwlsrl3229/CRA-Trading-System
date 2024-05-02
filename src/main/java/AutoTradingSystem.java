@@ -46,7 +46,7 @@ public class AutoTradingSystem {
     private boolean isRisingPrices(int[] history) {
         return history[0] < history[1] && history[1] < history[2];
     }
-
+  
     public void buyNiceTiming(String code, int balance) {
         int[] history = checkRisingStockPrices(code);
         if (isRisingPrices(history)) {
@@ -57,5 +57,19 @@ public class AutoTradingSystem {
     }
 
     public void sellNiceTiming(String code, int amount) {
+        int beforePrice = this.stockerBrockerDriver.getPrice(code);
+        int curPrice = 0;
+
+        boolean checkNiceTiming = true;
+        for (int cnt = 0; cnt < 2; cnt++) {
+            curPrice = this.stockerBrockerDriver.getPrice(code);
+            if (beforePrice <= curPrice) {
+                checkNiceTiming = false;
+                continue;
+            }
+            beforePrice = curPrice;
+        }
+        if (checkNiceTiming)
+            sell(code, amount, curPrice);
     }
 }
