@@ -1,5 +1,7 @@
 public class MockDriver implements StockerBrockerDriver {
 
+    private boolean isLogin;
+
     @Override
     public void login(String id, String pass) {
 
@@ -7,7 +9,18 @@ public class MockDriver implements StockerBrockerDriver {
 
     @Override
     public void buy(String stockCode, int count, int price) {
-        System.out.println("stockCode: " + stockCode + " count: " + count + " price: " + price);
+        if(!this.isLogin) {
+            throw new IllegalStateException("로그인이 안되었습니다.");
+        }
+        if(stockCode == null) {
+            throw new IllegalArgumentException("stock code 를 입력해주세요.");
+        }
+        if(price <= 0) {
+            throw new IllegalArgumentException("price(금액)는 최소 1 이상의 값이어야 합니다.");
+        }
+        if(count <= 0) {
+            throw new IllegalArgumentException("count(개수)는 최소 1 이상의 값이어야 합니다.");
+        }
     }
 
     @Override
