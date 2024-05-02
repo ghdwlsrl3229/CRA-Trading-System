@@ -29,9 +29,12 @@ class MockDriverTest {
         mockDriver.buy(stockCode, count, price);
     }
 
+
     @Test
-    void sellTest() {
-        mockDriver.sell("code", 2, 4);
+    void sellTest_loginFail() {
+        assertThrows(RuntimeException.class,()-> {
+            mockDriver.sell("code", 2, 4);
+        });
     }
 
     @Test
