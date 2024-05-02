@@ -12,7 +12,7 @@ public class MockDriver implements StockerBrockerDriver {
         setLogIn(true);
     }
 
-    private void setLogIn(boolean isLogin) {
+    public void setLogIn(boolean isLogin) {
         this.isLogin = isLogin;
     }
 
