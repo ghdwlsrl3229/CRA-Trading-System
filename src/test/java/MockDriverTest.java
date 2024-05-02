@@ -44,7 +44,61 @@ class MockDriverTest {
     }
 
     @Test
-    void sellTest() {
+    void sellTest_loginFail() {
+        assertThrows(RuntimeException.class, () -> {
+            mockDriver.sell("code", 2, 4);
+        });
+    }
+
+    @Test
+    void sellTest_StockCodeIsNull() {
+        assertThrows(RuntimeException.class, () -> {
+            mockDriver.sell(null, 2, 4);
+        });
+    }
+
+    @Test
+    void sellTest_CountIsNegative() {
+        assertThrows(RuntimeException.class, () -> {
+            mockDriver.sell("code", 0, 4);
+        });
+    }
+
+    @Test
+    void sellTest_PriceIsNegative() {
+        assertThrows(RuntimeException.class, () -> {
+            mockDriver.sell("code", 2, -1);
+        });
+    }
+
+    @Test
+    void getPriceButStockCodeIsNull() {
+        try {
+            mockDriver.getPrice(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
+    }
+
+    @Test
+    void getPriceButStockCodeIsEmpty() {
+        try {
+            mockDriver.getPrice("");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
+    }
+
+    @Test
+    void getPriceButStockCodeIsWitespace() {
+        try {
+            mockDriver.getPrice(" ");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
     }
 
     @Test
