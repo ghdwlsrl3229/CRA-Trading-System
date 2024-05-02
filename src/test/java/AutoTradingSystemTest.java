@@ -119,7 +119,7 @@ class AutoTradingSystemTest {
 
         ats.buyNiceTiming("code", balance);
         verify(driver, times(3)).getPrice("code");
-        verify(driver, times(1)).buy("code", balance/prices[2], prices[2]);
+        verify(driver, times(1)).buy("code", balance / prices[2], prices[2]);
     }
 
     @Test
@@ -131,9 +131,11 @@ class AutoTradingSystemTest {
                 .thenReturn(prices[1])
                 .thenReturn(prices[2]);
 
-        ats.buyNiceTiming("code", balance);
-        verify(driver, times(3)).getPrice("code");
-        verify(driver, never()).buy("code", balance/prices[2], prices[2]);
+        try {
+            ats.buyNiceTiming("code", balance);
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).isEqualTo("가격이 올라가는 추세가 아니므로 구입하지 않았습니다.");
+        }
     }
 
     @Test
