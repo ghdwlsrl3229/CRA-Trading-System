@@ -44,7 +44,6 @@ class MockDriverTest {
         });
     }
 
-
     @Test
     void buy_invalid_count() {
         assertThrows(IllegalStateException.class, () -> {
