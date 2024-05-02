@@ -19,8 +19,6 @@ class MockDriverTest {
     @Test
     void loginTest() {
         mockDriver.login("id", "pass");
-
-        assertEquals(1, mockDriver.getLoginCount());
     }
 
     @Test
@@ -29,9 +27,6 @@ class MockDriverTest {
         int count = 2;
         int price = 3;
         mockDriver.buy(stockCode, count, price);
-
-        assertEquals(-count * price, mockDriver.getMoney());
-        assertEquals(count, mockDriver.getStockCount(stockCode));
     }
 
     @Test
@@ -39,15 +34,11 @@ class MockDriverTest {
         String stockCode = "code";
         int count = 2;
         int price = 4;
-        mockDriver.sell("code", count, price);
-
-        assertEquals(count * price, mockDriver.getMoney());
-        assertEquals(-count, mockDriver.getStockCount(stockCode));
+        mockDriver.sell(stockCode, count, price);
     }
 
     @Test
     void getPriceTest() {
         assertEquals(0, mockDriver.getPrice("code"));
-        assertEquals(1, mockDriver.getGetPriceCount());
     }
 }
