@@ -21,7 +21,7 @@ public class AutoTradingSystem {
     }
 
     public void login(String id, String pass) {
-        if(isNullAccountValue(id, pass)) {
+        if (isNullAccountValue(id, pass)) {
             System.out.println("로그인 실패. 입력된 계정 정보가 없습니다.");
             return;
         }
@@ -30,5 +30,22 @@ public class AutoTradingSystem {
 
     private static boolean isNullAccountValue(String id, String pass) {
         return id == null || pass == null;
+    }
+
+    public void sellNiceTiming(String code, int amount) {
+        int beforePrice = this.stockerBrockerDriver.getPrice(code);
+        int curPrice = 0;
+
+        boolean checkNiceTiming = true;
+        for (int cnt = 0; cnt < 2; cnt++) {
+            curPrice = this.stockerBrockerDriver.getPrice(code);
+            if (beforePrice <= curPrice) {
+                checkNiceTiming = false;
+                continue;
+            }
+            beforePrice = curPrice;
+        }
+        if (checkNiceTiming)
+            sell(code, amount, curPrice);
     }
 }
