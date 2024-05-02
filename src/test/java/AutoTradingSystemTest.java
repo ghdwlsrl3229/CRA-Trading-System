@@ -32,7 +32,7 @@ class AutoTradingSystemTest {
     void loginTest() {
         ats.login("id", "pass");
 
-        verify(driver, times(1)).login("id", "pass").;
+        verify(driver, times(1)).login("id", "pass");
     }
 
     @Test
