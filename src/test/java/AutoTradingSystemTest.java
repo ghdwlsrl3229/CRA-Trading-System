@@ -51,4 +51,6 @@ class AutoTradingSystemTest {
 
         verify(driver, times(1)).getPrice("code");
     }
+
+
 }
