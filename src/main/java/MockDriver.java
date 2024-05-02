@@ -1,15 +1,21 @@
 public class MockDriver implements StockerBrockerDriver {
 
+    public static final int MIN_ID_LENGTH = 3;
+    public static final int MIN_PASS_LENGTH = 3;
     private boolean isLogin;
 
     @Override
     public void login(String id, String pass){
-        if(id.length() < 3 || pass.length() < 3) {
-            System.out.println("w잘못된 계정정보입니다.");
+        if(isInvalidAccount(id, pass)) {
+            System.out.println("잘못된 계정 정보입니다. 로그인 실패");
             return;
         }
         System.out.println(id + "님 로그인 성공");
         setLogIn(true);
+    }
+
+    public boolean isInvalidAccount(String id, String pass) {
+        return id.length() < MIN_ID_LENGTH || pass.length() < MIN_PASS_LENGTH;
     }
 
     private void setLogIn(boolean isLogin) {
