@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,9 +27,18 @@ class AutoTradingSystemTest {
 
     @Test
     void loginTest() {
-        ats.login("id", "pass");
-
-        verify(driver, times(1)).login("id", "pass");
+        ats.login("ANY", "ANY");
+        verify(driver, times(1)).login("ANY", "ANY");
+    }
+    @Test
+    void loginTest_null_pass() {
+        ats.login("ANY", null);
+        verify(driver, times(0)).login("ANY", null);
+    }
+    @Test
+    void loginTest_null_id() {
+        ats.login(null, "ANY");
+        verify(driver, times(0)).login(null, "ANY");
     }
 
     @Test
