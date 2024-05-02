@@ -31,10 +31,24 @@ public class AutoTradingSystem {
     private static boolean isNullAccountValue(String id, String pass) {
         return id == null || pass == null;
     }
-
+  
     public void buyNiceTiming(String code, int balance) {
     }
 
     public void sellNiceTiming(String code, int amount) {
+        int beforePrice = this.stockerBrockerDriver.getPrice(code);
+        int curPrice = 0;
+
+        boolean checkNiceTiming = true;
+        for (int cnt = 0; cnt < 2; cnt++) {
+            curPrice = this.stockerBrockerDriver.getPrice(code);
+            if (beforePrice <= curPrice) {
+                checkNiceTiming = false;
+                continue;
+            }
+            beforePrice = curPrice;
+        }
+        if (checkNiceTiming)
+            sell(code, amount, curPrice);
     }
 }
