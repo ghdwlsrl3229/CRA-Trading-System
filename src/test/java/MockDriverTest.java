@@ -38,6 +38,36 @@ class MockDriverTest {
     }
 
     @Test
+    void sellTest_StockCodeIsNull() {
+        String stockCode = null;
+        int count = 2;
+        int price = 4;
+        assertThrows(RuntimeException.class,()-> {
+            mockDriver.sell(stockCode, count, price);
+        });
+    }
+
+    @Test
+    void sellTest_CountIsNegative() {
+        String stockCode = "code";
+        int count = 0;
+        int price = 4;
+        assertThrows(RuntimeException.class,()-> {
+            mockDriver.sell(stockCode, count, price);
+        });
+    }
+
+    @Test
+    void sellTest_PriceIsNegative() {
+        String stockCode = "code";
+        int count = 2;
+        int price = -1;
+        assertThrows(RuntimeException.class,()-> {
+            mockDriver.sell(stockCode, count, price);
+        });
+    }
+
+    @Test
     void getPriceTest() {
         assertEquals(0, mockDriver.getPrice("code"));
     }
