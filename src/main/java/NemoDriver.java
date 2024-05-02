@@ -1,5 +1,8 @@
 public class NemoDriver implements StockerBrockerDriver{
+    public static final int MIN_ID_LENGTH = 3;
+    public static final int MIN_PASS_LENGTH = 3;
     private boolean isLogin;
+
     private NemoAPI api;
 
     public NemoDriver() {
@@ -12,7 +15,7 @@ public class NemoDriver implements StockerBrockerDriver{
 
     @Override
     public void login(String id, String pass){
-        if(id.length() < 3 || pass.length() < 3) {
+        if(id.length() < MIN_ID_LENGTH || pass.length() < MIN_PASS_LENGTH) {
             System.out.println("w잘못된 계정정보입니다.");
             return;
         }
@@ -63,5 +66,9 @@ public class NemoDriver implements StockerBrockerDriver{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setLogIn(boolean isLogin) {
+        this.isLogin = isLogin;
     }
 }
