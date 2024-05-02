@@ -17,6 +17,10 @@ public class MockDriver implements StockerBrockerDriver {
 
     @Override
     public int getPrice(String stockCode) {
+        if(stockCode == null || stockCode.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
         return 0;
     }
 }
