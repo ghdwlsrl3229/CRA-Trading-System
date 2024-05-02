@@ -52,5 +52,15 @@ class AutoTradingSystemTest {
         verify(driver, times(1)).getPrice("code");
     }
 
-
+    @Test
+    void getPriceButStockerBrockerIsNotSelected() {
+        AutoTradingSystem newAts = new AutoTradingSystem();
+        try {
+            newAts.getPrice("code");
+            fail();
+        }
+        catch (BrockerNotSelectedException e) {
+            assertNotNull(ats);
+        }
+    }
 }
