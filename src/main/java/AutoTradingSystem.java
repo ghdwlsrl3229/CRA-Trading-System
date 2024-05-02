@@ -5,9 +5,12 @@ public class AutoTradingSystem {
         this.stockerBrockerDriver = driver;
     }
 
+    public void buy(String code, int count, int price) {
+        this.stockerBrockerDriver.buy(code, count, price);
+    }
 
     public void getPrice(String stockCode) {
-        if(stockerBrockerDriver == null) {
+        if (stockerBrockerDriver == null) {
             throw new BrockerNotSelectedException("Please Select Before Do Something.");
         }
         stockerBrockerDriver.getPrice(stockCode);
@@ -28,6 +31,4 @@ public class AutoTradingSystem {
     private static boolean isNullAccountValue(String id, String pass) {
         return id == null || pass == null;
     }
-
-
 }
