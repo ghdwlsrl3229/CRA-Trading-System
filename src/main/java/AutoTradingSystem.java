@@ -21,7 +21,7 @@ public class AutoTradingSystem {
     }
 
     public void login(String id, String pass) {
-        if (isNullAccountValue(id, pass)) {
+        if(isNullAccountValue(id, pass)) {
             System.out.println("로그인 실패. 입력된 계정 정보가 없습니다.");
             return;
         }
