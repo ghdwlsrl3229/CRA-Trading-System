@@ -23,10 +23,7 @@ class MockDriverTest {
 
     @Test
     void buyTest() {
-        String stockCode = "code";
-        int count = 2;
-        int price = 3;
-        mockDriver.buy(stockCode, count, price);
+        mockDriver.buy("code", 2, 3);
     }
 
     @Test
