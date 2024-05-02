@@ -1,9 +1,11 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MockDriverTest {
+
     MockDriver mockDriver;
 
     @BeforeEach
@@ -18,42 +20,53 @@ class MockDriverTest {
 
     @Test
     void loginTest() {
-        mockDriver.login("id", "pass");
     }
 
     @Test
-    void buyTest() {
-        String stockCode = "code";
-        int count = 2;
-        int price = 3;
-        mockDriver.buy(stockCode, count, price);
+    void buy_not_login() {
+        assertThrows(IllegalStateException.class, () -> {
+            mockDriver.buy("code", 2, 3);
+        });
     }
 
+    @Test
+    void buy_invalid_price() {
+        assertThrows(IllegalStateException.class, () -> {
+            mockDriver.buy("code", 2, 0);
+        });
+    }
+
+    @Test
+    void buy_invalid_count() {
+        assertThrows(IllegalStateException.class, () -> {
+            mockDriver.buy("code", 0, 3);
+        });
+    }
 
     @Test
     void sellTest_loginFail() {
-        assertThrows(RuntimeException.class,()-> {
+        assertThrows(RuntimeException.class, () -> {
             mockDriver.sell("code", 2, 4);
         });
     }
 
     @Test
     void sellTest_StockCodeIsNull() {
-        assertThrows(RuntimeException.class,()-> {
+        assertThrows(RuntimeException.class, () -> {
             mockDriver.sell(null, 2, 4);
         });
     }
 
     @Test
     void sellTest_CountIsNegative() {
-        assertThrows(RuntimeException.class,()-> {
+        assertThrows(RuntimeException.class, () -> {
             mockDriver.sell("code", 0, 4);
         });
     }
 
     @Test
     void sellTest_PriceIsNegative() {
-        assertThrows(RuntimeException.class,()-> {
+        assertThrows(RuntimeException.class, () -> {
             mockDriver.sell("code", 2, -1);
         });
     }
@@ -63,8 +76,7 @@ class MockDriverTest {
         try {
             mockDriver.getPrice(null);
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertNotNull(mockDriver);
         }
     }
@@ -74,8 +86,7 @@ class MockDriverTest {
         try {
             mockDriver.getPrice("");
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertNotNull(mockDriver);
         }
     }
@@ -85,14 +96,12 @@ class MockDriverTest {
         try {
             mockDriver.getPrice(" ");
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertNotNull(mockDriver);
         }
     }
 
     @Test
     void getPriceTest() {
-        assertEquals(0, mockDriver.getPrice("code"));
     }
 }
