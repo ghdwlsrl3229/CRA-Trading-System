@@ -3,7 +3,17 @@ public class MockDriver implements StockerBrockerDriver {
     private boolean isLogin;
 
     @Override
-    public void login(String id, String pass) {
+    public void login(String id, String pass){
+        if(id.length() < 3 || pass.length() < 3) {
+            System.out.println("w잘못된 계정정보입니다.");
+            return;
+        }
+        System.out.println(id + "님 로그인 성공");
+        setLogIn(true);
+    }
+
+    private void setLogIn(boolean isLogin) {
+        this.isLogin = isLogin;
     }
 
     @Override
@@ -38,5 +48,9 @@ public class MockDriver implements StockerBrockerDriver {
         }
 
         return 0;
+    }
+
+    public boolean isLogIn() {
+        return isLogin;
     }
 }

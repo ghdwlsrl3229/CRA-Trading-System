@@ -1,11 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MockDriverTest {
-
     MockDriver mockDriver;
 
     @BeforeEach
@@ -19,7 +17,29 @@ class MockDriverTest {
     }
 
     @Test
-    void loginTest() {
+    void loginTest_success(){
+        mockDriver.login("ANY", "ANY");
+        assertTrue(mockDriver.isLogIn());
+    }
+    @Test
+    void loginTest_failed_id_short(){
+        mockDriver.login("AN", "ANY");
+        assertFalse(mockDriver.isLogIn());
+    }
+    @Test
+    void loginTest_failed_pass_short(){
+        mockDriver.login("ANY", "AN");
+        assertFalse(mockDriver.isLogIn());
+    }
+    @Test
+    void loginTest_failed_id_empty(){
+        mockDriver.login("", "ANY");
+        assertFalse(mockDriver.isLogIn());
+    }
+    @Test
+    void loginTest_failed_pass_empty(){
+        mockDriver.login("ANY", "");
+        assertFalse(mockDriver.isLogIn());
     }
 
     @Test
