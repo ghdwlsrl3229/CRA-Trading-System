@@ -4,4 +4,5 @@ public interface StockerBrockerDriver {
     void buy(String stockCode, int count , int price);
     void sell( String stockCode , int count , int price);
     int getPrice (String stockCode);
+    void setLogIn(boolean isLogIn);
 }
