@@ -73,4 +73,60 @@ class AutoTradingSystemTest {
             assertNotNull(ats);
         }
     }
+
+    @Test
+    void buyNiceTimingSuccess() {
+        int[] prices = {1, 2, 3, 4};
+        int balance = 13;
+        when(driver.getPrice("code"))
+                .thenReturn(prices[0])
+                .thenReturn(prices[1])
+                .thenReturn(prices[2]);
+
+        ats.buyNiceTiming("code", balance);
+        verify(driver, times(3)).getPrice("code");
+        verify(driver, times(1)).buy("code", balance/prices[2], prices[2]);
+    }
+
+    @Test
+    void buyNiceTimingNotExecuted() {
+        int[] prices = {1, 3, 2};
+        int balance = 6;
+        when(driver.getPrice("code"))
+                .thenReturn(prices[0])
+                .thenReturn(prices[1])
+                .thenReturn(prices[2]);
+
+        ats.buyNiceTiming("code", balance);
+        verify(driver, times(3)).getPrice("code");
+        verify(driver, never()).buy("code", balance/prices[2], prices[2]);
+    }
+
+    @Test
+    void sellNiceTimingSuccess() {
+        int[] prices = {3, 2, 1};
+        int amount = 5;
+        when(driver.getPrice("code"))
+                .thenReturn(prices[0])
+                .thenReturn(prices[1])
+                .thenReturn(prices[2]);
+
+        ats.sellNiceTiming("code", amount);
+        verify(driver, times(3)).getPrice("code");
+        verify(driver, times(1)).sell("code", amount, prices[2]);
+    }
+
+    @Test
+    void sellNiceTimingNotExecuted() {
+        int[] prices = {3, 4, 2};
+        int amount = 5;
+        when(driver.getPrice("code"))
+                .thenReturn(prices[0])
+                .thenReturn(prices[1])
+                .thenReturn(prices[2]);
+
+        ats.sellNiceTiming("code", amount);
+        verify(driver, times(3)).getPrice("code");
+        verify(driver, never()).sell("code", amount, prices[2]);
+    }
 }

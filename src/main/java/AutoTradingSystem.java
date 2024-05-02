@@ -30,4 +30,9 @@ public class AutoTradingSystem {
     }
 
 
+    public void buyNiceTiming(String code, int balance) {
+    }
+
+    public void sellNiceTiming(String code, int amount) {
+    }
 }
