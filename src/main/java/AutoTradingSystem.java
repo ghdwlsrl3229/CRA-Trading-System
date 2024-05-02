@@ -5,6 +5,14 @@ public class AutoTradingSystem {
         this.stockerBrockerDriver = driver;
     }
 
+
+    public void getPrice(String stockCode) {
+        if(stockerBrockerDriver == null) {
+            throw new BrockerNotSelectedException("Please Select Before Do Something.");
+        }
+        stockerBrockerDriver.getPrice(stockCode);
+    }
+
     public void sell(String stockCode, int count, int price) {
         this.stockerBrockerDriver.sell(stockCode, count, price);
     }
@@ -16,5 +24,6 @@ public class AutoTradingSystem {
         }
         this.stockerBrockerDriver.login(id, pass);
     }
+
 
 }
