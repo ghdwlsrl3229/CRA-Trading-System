@@ -38,6 +38,39 @@ class MockDriverTest {
     }
 
     @Test
+    void getPriceButStockCodeIsNull() {
+        try {
+            mockDriver.getPrice(null);
+            fail();
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
+    }
+
+    @Test
+    void getPriceButStockCodeIsEmpty() {
+        try {
+            mockDriver.getPrice("");
+            fail();
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
+    }
+
+    @Test
+    void getPriceButStockCodeIsWitespace() {
+        try {
+            mockDriver.getPrice(" ");
+            fail();
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(mockDriver);
+        }
+    }
+
+    @Test
     void getPriceTest() {
         assertEquals(0, mockDriver.getPrice("code"));
     }
